@@ -16,7 +16,7 @@ public class CarController : MonoBehaviour
 
     private float m_Forward;
     private float m_Turn;
-    private float m_Brake;
+    public float m_Brake { get; private set; }
 
     void FixedUpdate()
     {
@@ -54,6 +54,6 @@ public class CarController : MonoBehaviour
         }
 
         // Speed Update
-        SpeedManager.m_Speed = (int)m_CurrentSpeed;
+        //SpeedManager.Speed = (int)m_CurrentSpeed;
     }
 }

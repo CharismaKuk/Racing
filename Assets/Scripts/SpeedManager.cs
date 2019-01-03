@@ -3,8 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SpeedManager : MonoBehaviour {
+    public static SpeedManager Instance { get; private set; }
 
-    public static int m_Speed;
+    public int Speed { get; private set; }
 
     public  Text m_SpeedTxt;
     public int m_FontSize = 16;
@@ -12,13 +13,16 @@ public class SpeedManager : MonoBehaviour {
 
     void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+
         m_SpeedTxt = GetComponent<Text>();
-        m_Speed = 0;
+        Speed = 0;
     }
 
     private void Start()
     {
-        m_SpeedTxt.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+       m_SpeedTxt.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
         m_SpeedTxt.fontSize = m_FontSize;
     }
 
@@ -28,7 +32,8 @@ public class SpeedManager : MonoBehaviour {
         if (m_VehicleBody)
         {
             // check out about magnitude value!!
-            m_SpeedTxt.text = string.Format("Speed: {0:0.00}", m_VehicleBody.velocity.magnitude);
+            Speed = (int)m_VehicleBody.velocity.magnitude;
+            m_SpeedTxt.text = string.Format("Speed: {0:0}", Speed);
         }
     }
 }
